@@ -1,7 +1,6 @@
 package com.sprta.schedulers.mapper;
 
 import com.sprta.schedulers.dto.GetScheduleDto;
-import com.sprta.schedulers.entity.Schedule;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

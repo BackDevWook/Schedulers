@@ -17,7 +17,9 @@ public class ScheduleService {
     }
     //비밀번호 확인
     public boolean checkPassword(String password, Long id) {
-        return true;
+
+        return password.equals(jdbcScheduleRepository.findById(id).getPassword());
+
     }
 
 }

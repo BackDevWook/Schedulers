@@ -2,7 +2,6 @@ package com.sprta.schedulers.repository;
 
 import com.sprta.schedulers.dto.GetScheduleDto;
 import com.sprta.schedulers.dto.PostScheduleDto;
-import com.sprta.schedulers.dto.PutScheduleDto;
 import com.sprta.schedulers.entity.Schedule;
 import com.sprta.schedulers.mapper.GetScheduleMapper;
 import com.sprta.schedulers.mapper.ScheduleMapper;
@@ -11,8 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @ToString
@@ -61,8 +58,15 @@ public class JdbcScheduleRepository implements ScheduleRepository {
 
     // DELETE : 스케줄 삭제
     @Override
-    public void deleteSchedule() {
+    public void deleteSchedule(Long id) {
+        String sql = "DELETE FROM schedule WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
 
+    // id 로 데이터 찾기
+    public Schedule findById(Long id) {
+        String sql = "SELECT * FROM schedule WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new ScheduleMapper());
     }
 
 

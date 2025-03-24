@@ -3,6 +3,7 @@ package com.sprta.schedulers.controller;
 import com.sprta.schedulers.dto.GetScheduleDto;
 import com.sprta.schedulers.dto.PostScheduleDto;
 import com.sprta.schedulers.dto.PutScheduleDto;
+import com.sprta.schedulers.entity.Schedule;
 import com.sprta.schedulers.repository.JdbcScheduleRepository;
 import com.sprta.schedulers.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,12 @@ public class ScheduleController {
     }
 
     // 스케줄 삭제하기
-    @DeleteMapping
-    public void deleteSchedule() {
-
+    @DeleteMapping("/{id}")
+    public String deleteSchedule(@PathVariable Long id, @RequestBody Schedule schedule) {
+        if(new ScheduleService(jdbcScheduleRepository).checkPassword(schedule.getPassword(), id)) {
+            jdbcScheduleRepository.deleteSchedule(id);
+            return "삭제됌";
+        }
+        return "비밀번호 틀림";
     }
 }
