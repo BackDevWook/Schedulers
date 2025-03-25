@@ -2,6 +2,7 @@ package com.sprta.schedulers.repository;
 
 import com.sprta.schedulers.dto.GetScheduleDto;
 import com.sprta.schedulers.dto.PostScheduleDto;
+import com.sprta.schedulers.entity.Schedule;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface ScheduleRepository {
 
     // 스케줄 삭제
     public void deleteSchedule(Long id);
+
+    // id로 데이터 찾기
+    public Schedule findById(Long id);
 }

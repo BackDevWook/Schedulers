@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.List;
 
-@ToString
+
 @Repository
 public class JdbcScheduleRepository implements ScheduleRepository {
 
