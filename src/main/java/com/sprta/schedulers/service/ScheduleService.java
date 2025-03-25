@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 public class ScheduleService {
 
+    // 리포지토리 생성
     private final ScheduleRepository scheduleRepository;
-
     @Autowired
     public ScheduleService(JdbcScheduleRepository jdbcScheduleRepository) {
         this.scheduleRepository = jdbcScheduleRepository;

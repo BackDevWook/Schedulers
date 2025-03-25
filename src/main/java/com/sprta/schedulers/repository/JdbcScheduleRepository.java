@@ -5,13 +5,11 @@ import com.sprta.schedulers.dto.PostScheduleDto;
 import com.sprta.schedulers.entity.Schedule;
 import com.sprta.schedulers.mapper.GetScheduleMapper;
 import com.sprta.schedulers.mapper.ScheduleMapper;
-import lombok.ToString;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
-
 
 @Repository
 public class JdbcScheduleRepository implements ScheduleRepository {

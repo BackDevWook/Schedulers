@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class Schedule {
+    // id, 이름, 제목, 내용, 작성일, 수정일, 비밀번호
     private Long id;
     private String whoName; // 글자 제한 수 : 25
     private String title; // 글자 제한 수 : 25

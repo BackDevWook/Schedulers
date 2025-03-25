@@ -4,16 +4,12 @@ import com.sprta.schedulers.dto.DeleteDto;
 import com.sprta.schedulers.dto.GetScheduleDto;
 import com.sprta.schedulers.dto.PostScheduleDto;
 import com.sprta.schedulers.dto.PutScheduleDto;
-import com.sprta.schedulers.entity.Schedule;
-import com.sprta.schedulers.repository.JdbcScheduleRepository;
-import com.sprta.schedulers.repository.ScheduleRepository;
 import com.sprta.schedulers.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/schedules")
@@ -80,7 +76,6 @@ public class ScheduleController {
             scheduleService.deleteService(id);
             return ResponseEntity.ok("삭제 됌");
         };
-//
         return ResponseEntity.badRequest().body("비밀번호 틀림");
     }
 }
