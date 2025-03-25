@@ -53,4 +53,9 @@ public class ScheduleService {
                 id
         );
     }
+
+    //ID로 데이터 찾기
+    public Schedule getSchedule(Long id) {
+        return scheduleRepository.findById(id);
+    }
 }

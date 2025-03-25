@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class GetScheduleDto {
     // 작성자, 제목, 내용, 작성일, 수정일 보여주기
     // 비밀번호는 받아서 확인하는 용도
+    private Long id;
     private String whoName;
     private String title;
     private String content;

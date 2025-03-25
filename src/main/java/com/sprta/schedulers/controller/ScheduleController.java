@@ -4,13 +4,16 @@ import com.sprta.schedulers.dto.DeleteDto;
 import com.sprta.schedulers.dto.GetScheduleDto;
 import com.sprta.schedulers.dto.PostScheduleDto;
 import com.sprta.schedulers.dto.PutScheduleDto;
+import com.sprta.schedulers.entity.Schedule;
 import com.sprta.schedulers.repository.JdbcScheduleRepository;
 import com.sprta.schedulers.repository.ScheduleRepository;
 import com.sprta.schedulers.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/schedules")
@@ -30,52 +33,54 @@ public class ScheduleController {
 
     // 스케줄 조회하기
     @GetMapping("/{id}")
-    public GetScheduleDto getSchedule(@PathVariable long id) {
-        return scheduleService.getScheduleService(id);
+    public ResponseEntity<GetScheduleDto> getSchedule(@PathVariable long id) {
+        return ResponseEntity.ok(scheduleService.getScheduleService(id));
     }
 
     // 스케줄 전체조회
     @GetMapping
-    public List<GetScheduleDto> getAllSchedules() {
-        return scheduleService.getAllSchedulesService();
+    public ResponseEntity<List<GetScheduleDto>> getAllSchedules() {
+        return ResponseEntity.ok(scheduleService.getAllSchedulesService());
     }
 
     // 스케줄 생성하기
     @PostMapping
-    public String postSchedule(@RequestBody PostScheduleDto postScheduleDto) {
-
+    public ResponseEntity<String> postSchedule(@RequestBody PostScheduleDto postScheduleDto) {
         // 글자 수 제한
-        if(postScheduleDto.getWhoName().length() > 25
-            || postScheduleDto.getTitle().length() > 25
-            || postScheduleDto.getContent().length() > 500
-            || postScheduleDto.getPassword().length() > 25 ) {
-           throw new IllegalArgumentException("잘못된 입력입니다.");
+        if(postScheduleDto.getWhoName().length() > 25) {
+            return ResponseEntity.badRequest().body("이름 길이가 초과하셨습니다.");
+        } else if (postScheduleDto.getTitle().length() > 25 ) {
+           return ResponseEntity.badRequest().body("title 길이가 초과하셨습니다.");
+        } else if (postScheduleDto.getContent().length() > 500) {
+            return ResponseEntity.badRequest().body("content 길이가 초과하셨습니다.");
+        } else if ( postScheduleDto.getPassword().length() > 25 ) {
+            return ResponseEntity.badRequest().body("비밀번호 길이가 초과하셨습니다.");
         }
         scheduleService.postService(postScheduleDto);
-        return "일정이 정상적으로 등록되었습니다.";
+        return ResponseEntity.ok("등록 완료");
     }
 
     // 스케줄 수정하기
     @PutMapping("/{id}")
-    public String updateSchedule(@PathVariable Long id, @RequestBody PutScheduleDto putScheduleDto) {
+    public ResponseEntity<String> updateSchedule(@PathVariable Long id, @RequestBody PutScheduleDto putScheduleDto) {
         //비밀번호가 일치할 경우 수정
         if (scheduleService.checkPassword(putScheduleDto.getPassword(), id)) {
             scheduleService.putScheduleService(id, putScheduleDto);
         } else {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            return ResponseEntity.badRequest().body("비밀번호 틀림");
         }
-        return "수정 완료";
+        return ResponseEntity.ok("수정 됌");
     }
 
     // 스케줄 삭제하기
     @DeleteMapping("/{id}")
-    public String deleteSchedule(@PathVariable Long id, @RequestBody DeleteDto deleteDto) {
+    public ResponseEntity<String> deleteSchedule(@PathVariable Long id, @RequestBody DeleteDto deleteDto) {
 
         if (scheduleService.checkPassword(deleteDto.getPassword(), id)) {
             scheduleService.deleteService(id);
-            return "삭제됌";
+            return ResponseEntity.ok("삭제 됌");
         };
 //
-        return "비밀번호 틀림";
+        return ResponseEntity.badRequest().body("비밀번호 틀림");
     }
 }

@@ -10,6 +10,7 @@ public class GetScheduleMapper implements RowMapper<GetScheduleDto> {
     @Override
     public GetScheduleDto mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new GetScheduleDto(
+                rs.getLong("id"),
                 rs.getString("who_name"),
                 rs.getString("title"),
                 rs.getString("content"),
