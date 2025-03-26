@@ -1,6 +1,6 @@
 package com.sprta.schedulers.controller;
 
-import com.sprta.schedulers.dto.DeleteDto;
+import com.sprta.schedulers.dto.DeleteScheduleDto;
 import com.sprta.schedulers.dto.GetScheduleDto;
 import com.sprta.schedulers.dto.PostScheduleDto;
 import com.sprta.schedulers.dto.PutScheduleDto;
@@ -18,8 +18,6 @@ public class ScheduleController {
     // 서비스 클래스
     ScheduleService scheduleService;
 
-
-    // repository
     @Autowired
     public ScheduleController(ScheduleService scheduleService) {
         this.scheduleService = scheduleService;
@@ -70,7 +68,7 @@ public class ScheduleController {
 
     // 스케줄 삭제하기
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSchedule(@PathVariable Long id, @RequestBody DeleteDto deleteDto) {
+    public ResponseEntity<String> deleteSchedule(@PathVariable Long id, @RequestBody DeleteScheduleDto deleteDto) {
 
         if (scheduleService.checkPassword(deleteDto.getPassword(), id)) {
             scheduleService.deleteService(id);

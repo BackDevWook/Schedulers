@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class GetScheduleDto {
     // 작성자, 제목, 내용, 작성일, 수정일 보여주기
-    // 비밀번호는 받아서 확인하는 용도
+    // id는 전체조회를 위해 사용
     private Long id;
     private String whoName;
     private String title;
